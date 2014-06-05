@@ -9,7 +9,7 @@ use Perinci::CmdLine 1.04;
 # DATE
 # VERSION
 
-Perinci::CmdLine->new(url => "/XPAN/Query/list_xpan_authors")->run;
+Perinci::CmdLine->new(url => "/XPAN/Query/list_xpan_dists")->run;
 
 1;
 #ABSTRACT: List {CPAN,MiniCPAN,DarkPAN} distributions
