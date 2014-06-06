@@ -184,6 +184,15 @@ sub list_xpan_modules {
 $SPEC{list_xpan_dists} = {
     v => 1.1,
     summary => 'List distributions in {CPAN,MiniCPAN,DarkPAN} mirror',
+    description => <<'_',
+
+For simplicity and performance, this module parses distribution names from
+tarball filenames mentioned in `02packages.details.txt.gz`, so it is not perfect
+(some release tarballs, especially older ones, are not properly named). For more
+proper way, one needs to read the metadata file (`*.meta`) for each
+distribution.
+
+_
     args => {
         %common_args,
         %query_args,
