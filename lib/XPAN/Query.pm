@@ -230,8 +230,6 @@ sub list_xpan_dists {
 
 =head1 DESCRIPTION
 
-B<INITIAL RELEASE: no implementations yet>.
-
 XPAN is a term I coined for any repository (directory tree, be it on a local
 filesystem or a remote network) that has structure like a CPAN mirror,
 specifically having a C<modules/02packages.details.txt.gz> file. This includes a
