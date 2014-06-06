@@ -41,6 +41,10 @@ my %common_args = (
             },
         },
     },
+    detail => {
+        summary => "If set to true, will return array of records instead of just ID's",
+        schema  => 'bool',
+    },
     temp_dir => {
         schema => 'str*',
     },
@@ -48,6 +52,7 @@ my %common_args = (
 
 my %query_args = (
     query => {
+        summary => 'Search query',
         schema => 'str*',
         cmdline_aliases => {q=>{}},
         pos => 1,
@@ -88,7 +93,7 @@ sub _parse {
     }
 
     # extract and process (XXX this is currently unix-specific)
-    my $sertarget = "$tmpdir/$filename.sereal-$md5";
+    my $sertarget = "$tmpdir/$filename.2.sereal-$md5";
     my @serst = stat($sertarget);
     my $data;
     if (@serst && $serst[9] >= $gzst[9]) {
@@ -110,15 +115,14 @@ sub _parse {
             my ($author, $file) = $path =~ m!^./../(.+?)/(.+)!
                 or die "Line $line: Invalid path $path";
             $authors{$author} = 1;
-            $packages{$pkg} = $ver;
+            $packages{$pkg} = {author=>$author, version=>$ver, file=>$file};
             my $dist = $file;
             # XXX should've extract metadata
-            say "D:file=$file";
             if ($dist =~ s/-v?(\d(?:\d*(\.[\d_][^.]*)*?)?).\D.+//) {
                 #say "D:  dist=$dist, 1=$1";
-                $dists{$dist} = $1;
+                $dists{$dist} = {author=>$author, version=>$1, file=>$file};
             } else {
-                warn "Line $line: Can't parse dist version from filename $file";
+                $log->info("Line $line: Can't parse dist version from filename $file");
                 #next;
             }
         }
@@ -141,17 +145,26 @@ $SPEC{list_xpan_authors} = {
         %query_args,
     },
     result_naked => 1,
+    result => {
+        description => <<'_',
+
+By default will return an array of CPAN ID's. If you set `detail` to true, will
+return array of records.
+
+_
+    },
 };
 sub list_xpan_authors {
     my %args = @_;
+    my $detail = $args{detail};
     my $data = _parse(%args);
     my $q = lc($args{query} // '');
-    my $res = [];
+    my @res;
     for (@{ $data->{authors} }) {
         next if length($q) && index(lc($_), $q) < 0;
-        push @$res, $_;
+        push @res, $detail ? {cpanid=>$_} : $_;
     }
-    $res;
+    \@res;
 }
 
 $SPEC{list_xpan_packages} = {
@@ -160,20 +173,37 @@ $SPEC{list_xpan_packages} = {
     args => {
         %common_args,
         %query_args,
+        author => {
+            summary => 'Filter by author',
+            schema => 'str*',
+            cmdline_aliases => {a=>{}},
+        },
     },
     result_naked => 1,
+    result => {
+        description => <<'_',
+
+By default will return an array of package names. If you set `detail` to true,
+will return array of records.
+
+_
+    },
 };
 sub list_xpan_packages {
     my %args = @_;
+    my $detail = $args{detail};
+
     my $data = _parse(%args);
     my $q = lc($args{query} // '');
-    my $res = {};
+    my @res;
     for (keys %{ $data->{packages} }) {
-        my $ver = $data->{packages}{$_};
+        my $rec = $data->{packages}{$_};
         next if length($q) && index(lc($_), $q) < 0;
-        $res->{$_} = $ver;
+        next if $args{author} && uc($args{author}) ne uc($rec->{author});
+        $rec->{name} = $_;
+        push @res, $detail ? $rec : $_;
     }
-    $res;
+    \@res;
 }
 
 $SPEC{list_xpan_modules} = $SPEC{list_xpan_packages};
@@ -196,20 +226,37 @@ _
     args => {
         %common_args,
         %query_args,
+        author => {
+            summary => 'Filter by author',
+            schema => 'str*',
+            cmdline_aliases => {a=>{}},
+        },
     },
     result_naked => 1,
+    result => {
+        description => <<'_',
+
+By default will return an array of distribution names. If you set `detail` to
+true, will return array of records.
+
+_
+    },
 };
 sub list_xpan_dists {
     my %args = @_;
+    my $detail = $args{detail};
+
     my $data = _parse(%args);
     my $q = lc($args{query} // '');
-    my $res = {};
+    my @res;
     for (keys %{ $data->{dists} }) {
-        my $ver = $data->{dists}{$_};
+        my $rec = $data->{dists}{$_};
         next if length($q) && index(lc($_), $q) < 0;
-        $res->{$_} = $ver;
+        next if $args{author} && uc($args{author}) ne uc($rec->{author});
+        $rec->{name} = $_;
+        push @res, $detail ? $rec : $_;
     }
-    $res;
+    \@res;
 }
 
 
