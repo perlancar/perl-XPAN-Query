@@ -244,11 +244,18 @@ period of time).
 
 =head1 SEE ALSO
 
-L<Parse::CPAN::Packages>
+L<Parse::CPAN::Packages> is a more full-featured and full-fledged module to
+parse C<02packages.details.txt.gz>. The downside is, startup and performance is
+slower.
 
-L<Parse::CPAN::Packages::Fast>
+L<Parse::CPAN::Packages::Fast> is created as a more lightweight alternative to
+Parse::CPAN::Packages.
 
-L<PAUSE::Packages>, L<PAUSE::Users>
+L<PAUSE::Packages> also parses C<02packages.details.txt.gz>, it's just that the
+interface is different.
+
+L<PAUSE::Users> parses C<authors/00whois.xml>. XPAN::Query does not parse this
+file, it is currently not generated/downloaded by CPAN::Mini, for example.
 
 Tangentially related: L<BackPAN::Index>
 
