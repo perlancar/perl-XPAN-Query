@@ -1,5 +1,19 @@
 Revision history for XPAN-Query
 
+0.04    2014-06-06 (SHARYANTO)
+
+        - [Incompatible change] Change return type for some function, now all
+          function return array (table data) instead of hash.
+
+        - Add argument: detail (false by default). Return names/ID's by default
+          instead of detailed records.
+
+        - Add filters by author, dist.
+
+        - Split CLI scripts to App-XPANQueryUtils to make dependencies of this
+          distribution lighter.
+
+
 0.03    2014-06-05 (SHARYANTO)
 
         - Add --query.
