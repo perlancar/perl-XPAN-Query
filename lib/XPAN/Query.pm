@@ -121,6 +121,7 @@ sub _parse {
             if ($dist =~ s/-v?(\d(?:\d*(\.[\d_][^.]*)*?)?).\D.+//) {
                 #say "D:  dist=$dist, 1=$1";
                 $dists{$dist} = {author=>$author, version=>$1, file=>$file};
+                $packages{$pkg}{dist} = $dist;
             } else {
                 $log->info("Line $line: Can't parse dist version from filename $file");
                 #next;
@@ -178,6 +179,11 @@ $SPEC{list_xpan_packages} = {
             schema => 'str*',
             cmdline_aliases => {a=>{}},
         },
+        dist => {
+            summary => 'Filter by distribution',
+            schema => 'str*',
+            cmdline_aliases => {d=>{}},
+        },
     },
     result_naked => 1,
     result => {
@@ -200,6 +206,7 @@ sub list_xpan_packages {
         my $rec = $data->{packages}{$_};
         next if length($q) && index(lc($_), $q) < 0;
         next if $args{author} && uc($args{author}) ne uc($rec->{author});
+        next if $args{dist} && $args{dist} ne $rec->{dist};
         $rec->{name} = $_;
         push @res, $detail ? $rec : $_;
     }
