@@ -154,6 +154,17 @@ return array of records.
 
 _
     },
+    examples => [
+        {
+            summary => 'List all authors',
+            argv    => ['/cpan'],
+        },
+        {
+            summary => 'Grep by CPAN ID',
+            argv    => ['/cpan', 'MICHAEL'],
+            result  => ['MICHAEL', 'MICHAELW'],
+        },
+    ],
 };
 sub list_xpan_authors {
     my %args = @_;
@@ -194,6 +205,40 @@ will return array of records.
 
 _
     },
+    examples => [
+        {
+            summary => 'List all distributions',
+            argv    => ['/cpan'],
+        },
+        {
+            summary => 'Grep by distribution name, return detailed record',
+            argv    => ['/cpan', 'data-table'],
+            result  => [
+                {
+                    author  => "BIGJ",                          # ..{0}
+                    file    => "Data-TableAutoSum-0.08.tar.gz", # ..{1}
+                    name    => "Data-TableAutoSum",             # ..{2}
+                    version => "0.08",                          # ..{3}
+                }, # .[0]
+                {
+                    author  => "EZDB",                        # ..{0}
+                    file    => "Data-Table-Excel-0.5.tar.gz", # ..{1}
+                    name    => "Data-Table-Excel",            # ..{2}
+                    version => "0.5",                         # ..{3}
+                }, # .[1]
+                {
+                    author  => "EZDB",                   # ..{0}
+                    file    => "Data-Table-1.70.tar.gz", # ..{1}
+                    name    => "Data-Table",             # ..{2}
+                    version => "1.70",                   # ..{3}
+                }, # .[2]
+            ],     # [2]
+        },
+        {
+            summary => 'Filter by author, return JSON',
+            argv    => ['/cpan', '--author', 'sharyanto', '--json'],
+        },
+    ],
 };
 sub list_xpan_packages {
     my %args = @_;
