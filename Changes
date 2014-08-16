@@ -1,5 +1,14 @@
 Revision history for XPAN-Query
 
+0.05     2014-08-16 (SHARYANTO) - Happy 19th CPAN Day!
+
+         - No functional changes.
+
+         - Move examples from manual scripts in App-XPANQueryUtils to Rinci
+           function metadata, for later when that dist is rebuilt using an
+           updated DZP::Rinci::ScriptFromFunc.
+
+
 0.04    2014-06-06 (SHARYANTO)
 
         - [Incompatible change] Change return type for some function, now all
