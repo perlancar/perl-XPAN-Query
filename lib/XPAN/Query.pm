@@ -81,7 +81,7 @@ sub _parse {
     my $gztarget = "$tmpdir/$filename.gz-$md5";
     my @gzst = stat($gztarget);
     if (@gzst && $gzst[9] >= $now-$cache_period) {
-        $log->tracef("Using cache file %s", $gztarget);
+        $log->tracef("Using cached download file %s", $gztarget);
     } else {
         my $url = "$xpan_url/modules/$filename.gz";
         $log->tracef("Downloading %s ...", "$url");
@@ -97,7 +97,7 @@ sub _parse {
     my @serst = stat($sertarget);
     my $data;
     if (@serst && $serst[9] >= $gzst[9]) {
-        $log->tracef("Using cache file %s", $sertarget);
+        $log->tracef("Using cached serialized file %s", $sertarget);
         $data = decode_sereal(~~read_file($sertarget));
     } else {
         $log->trace("Parsing $filename.gz ...");
