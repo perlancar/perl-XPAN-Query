@@ -217,6 +217,7 @@ sub list_xpan_authors {
 
     my $dbh = _parse(%args);
     my $q = $args{query} // ''; # sqlite is case-insensitive by default, yay
+    $q = '%'.$q.'%' unless $q =~ /%/;
 
     my @bind;
     my @where;
@@ -270,6 +271,7 @@ sub list_xpan_packages {
 
     my $dbh = _parse(%args);
     my $q = $args{query} // ''; # sqlite is case-insensitive by default, yay
+    $q = '%'.$q.'%' unless $q =~ /%/;
 
     my @bind;
     my @where;
@@ -378,6 +380,7 @@ sub list_xpan_dists {
 
     my $dbh = _parse(%args);
     my $q = $args{query} // '';
+    $q = '%'.$q.'%' unless $q =~ /%/;
 
     my @bind;
     my @where;
