@@ -1,5 +1,8 @@
 package XPAN::Query;
 
+# DATE
+# VERSION
+
 use 5.010001;
 use strict;
 use warnings;
@@ -22,8 +25,8 @@ our @EXPORT_OK = qw(
                );
 
 our %SPEC;
-# VERSION
-# DATE
+
+our $DEFAULT_CACHE_PERIOD = 86400;
 
 my %common_args = (
     url => {
@@ -33,7 +36,7 @@ my %common_args = (
         pos => 0,
     },
     cache_period => {
-        schema => [int => default => 86400],
+        schema => [int => default => $DEFAULT_CACHE_PERIOD],
         cmdline_aliases => {
             nocache => {
                 schema => [bool => {is=>1}],
@@ -71,7 +74,7 @@ sub _parse {
     unless ($xpan_url->scheme) { $xpan_url = URI->new("file:$args{url}") }
 
     my $tmpdir = $args{temp_dir} // $ENV{TEMP} // $ENV{TMP} // "/tmp";
-    my $cache_period = $args{cache_period} // 86400;
+    my $cache_period = $args{cache_period} // $DEFAULT_CACHE_PERIOD;
 
     state $ua = LWP::UserAgent->new;
     my $filename = "02packages.details.txt";
@@ -345,6 +348,13 @@ C<authors/id/C/CP/CPANID> directories.
 With this module, you can query various things about the repository. This module
 fetches C<02packages.details.txt.gz> and parses it (caching it locally for a
 period of time).
+
+
+=head1 VARIABLES
+
+=head2 C<$XPAN::Query::DEFAULT_CACHE_PERIOD> => int (default: 86400)
+
+Set default cache period, in seconds.
 
 
 =head1 SEE ALSO
