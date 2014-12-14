@@ -1,5 +1,23 @@
 Revision history for XPAN-Query
 
+0.06     2014-12-14 (PERLANCAR)
+
+         - Introduce $URL & $CACHE_PERIOD, can also be preset from XPAN_URL and
+           XPAN_CACHE_PERIOD environment variables.
+
+         - By default looks at /cpan *or* http://www.cpan.org/, so the 'url'
+           argument is now optional (and now can be set from environment
+           anyway).
+
+         - Instead of Sereal, now converts 02packages.details.txt.gz to SQLite
+           database. This makes first-time conversion longer (1-2s to 10-15s on
+           my computer) but makes subsequent queries faster (from +- 0.3-0.5s to
+           only millisecs) and makes this module usable for tab completion.
+
+         - No longer depends on Unix external command 'zcat', but now uses
+           PerlIO::gzip.
+
+
 0.05     2014-08-16 (SHARYANTO) - Happy 19th CPAN Day!
 
          - No functional changes.
