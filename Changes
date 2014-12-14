@@ -1,5 +1,11 @@
 Revision history for XPAN-Query
 
+0.07    2014-12-14 (PERLANCAR)
+
+	- [ux] By default query should search for substring too, like the
+	  old version.
+
+
 0.06     2014-12-14 (PERLANCAR)
 
          - Introduce $URL & $CACHE_PERIOD, can also be preset from XPAN_URL and
