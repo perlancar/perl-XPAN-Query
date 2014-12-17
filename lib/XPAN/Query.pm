@@ -25,6 +25,11 @@ our @EXPORT_OK = qw(
 
 our %SPEC;
 
+$SPEC{':package'} = {
+    v => 1.1,
+    summary => 'Query a {CPAN,MiniCPAN,DarkPAN} mirror',
+};
+
 our $CACHE_PERIOD = $ENV{XPAN_CACHE_PERIOD} // 86400;
 our $URL          = $ENV{XPAN_URL} // ["/cpan", "http://www.cpan.org/"];
 
@@ -407,7 +412,7 @@ sub list_xpan_dists {
 
 
 1;
-# ABSTRACT: Query a {CPAN,MiniCPAN,DarkPAN} mirror
+# ABSTRACT:
 
 =head1 SYNOPSIS
 
