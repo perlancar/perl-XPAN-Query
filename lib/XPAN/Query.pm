@@ -120,6 +120,7 @@ sub _parse {
             $has_success_url++;
             $log->tracef("Writing %s ...", $gztarget);
             write_file($gztarget, $res->content);
+            last DOWNLOAD;
         }
     }
 
