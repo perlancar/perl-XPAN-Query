@@ -1,5 +1,13 @@
 Revision history for XPAN-Query
 
+0.08    2015-01-02 (PERLANCAR)
+
+	- No functional changes.
+
+	- [Bugfix] Logic error: forgot to last from loop after successfully
+	  getting from a mirror.
+
+
 0.07    2014-12-14 (PERLANCAR)
 
 	- [ux] By default query should search for substring too, like the
