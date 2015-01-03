@@ -474,9 +474,6 @@ Can be used to preset C<$XPAN::Query::CACHE_PERIOD>.
 Can be used to preset C<$XPAN::Query::URL>.
 
 
-=head1 TODO
-
-
 =head1 SEE ALSO
 
 L<Parse::CPAN::Packages> is a more full-featured and full-fledged module to
