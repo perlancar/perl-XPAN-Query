@@ -1,5 +1,11 @@
 Revision history for XPAN-Query
 
+0.09    2015-01-04 (PERLANCAR)
+
+	- [Bugfix] Typo/copy-paste mistake: selected on wrong table for
+	  list_xpan_dists().
+
+
 0.08    2015-01-02 (PERLANCAR)
 
 	- No functional changes.
