@@ -398,7 +398,7 @@ sub list_xpan_dists {
         push @where, "(author=?)";
         push @bind, $args{author};
     }
-    my $sql = "SELECT * FROM package".
+    my $sql = "SELECT * FROM dist".
         (@where ? " WHERE ".join(" AND ", @where) : "").
             " ORDER BY name";
 
