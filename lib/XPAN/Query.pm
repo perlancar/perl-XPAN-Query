@@ -489,6 +489,11 @@ interface is different.
 L<PAUSE::Users> parses C<authors/00whois.xml>. XPAN::Query does not parse this
 file, it is currently not generated/downloaded by CPAN::Mini, for example.
 
+L<CPANDB::Generator>. This will generate a local C<CPANDB> SQLite database like
+XPAN::Query. However, it generates a more complete index (e.g. dependency graph)
+but require a (local) CPAN mirror instead of just 02packages.details.txt.gz
+file.
+
 Tangentially related: L<BackPAN::Index>
 
 =cut
