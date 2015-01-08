@@ -1,5 +1,12 @@
 Revision history for XPAN-Query
 
+0.10    2015-01-08 (PERLANCAR)
+
+	- No functional changes.
+
+	- Mention CPANDB/CPANDB::Generator.
+
+
 0.09    2015-01-04 (PERLANCAR)
 
 	- [Bugfix] Typo/copy-paste mistake: selected on wrong table for
