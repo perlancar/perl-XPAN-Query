@@ -43,6 +43,7 @@ If not specified, will default to `XPAN_URL` environment, or `$URL` variable
 (which by default is set to `/cpan`).
 
 _
+        tags => ['common'],
     },
     cache_period => {
         schema => [int => default => $CACHE_PERIOD],
@@ -58,13 +59,16 @@ If you set this to 0 it means to force cache to expire. If you set this to -1 it
 means to never expire the cache (always use the cache no matter how old it is).
 
 _
+        tags => ['common'],
     },
     detail => {
         summary => "If set to true, will return array of records instead of just ID's",
         schema  => 'bool',
+        tags => ['common'],
     },
     temp_dir => {
         schema => 'str*',
+        tags => ['common'],
     },
 );
 
